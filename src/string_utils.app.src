@@ -1,0 +1,6 @@
+{application,string_utils,
+             [{description,"String functions"},
+              {vsn,"1.0.0"},
+              {licenses,["MIT"]},
+              {links,[{"GitHub","https://github.com/relayr/erl-string-utils"}]},
+              {applications,[kernel,stdlib]}]}.
