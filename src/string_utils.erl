@@ -14,7 +14,9 @@
 %% Function exports
 %%------------------------------------------------------------------------------
 -export([
+    binary_to_hex_string/1,
     list_to_hex_string/1,
+    hex_string_to_binary/1,
     hex_string_to_list/1,
     list_to_string/1,
     get_random_string/2,
@@ -38,10 +40,20 @@
 %% Exported functions
 %% =============================================================================
 
+%% @doc Convert bytes to binary string with hexadecimal characters.
+-spec binary_to_hex_string(Binary :: binary()) -> HexString :: binary().
+binary_to_hex_string(Binary) ->
+    list_to_binary([byte_to_hex(Byte) || Byte <- binary_to_list(Binary)]).
+
 %% @doc Convert list of bytes to string with hexadecimal characters.
 -spec list_to_hex_string(List :: [byte()]) -> HexString :: string().
 list_to_hex_string(List) ->
     lists:flatten([byte_to_hex(X) || X <- List]).
+
+%% @doc Convert binary string with hexadecimal characters to bytes.
+-spec hex_string_to_binary(HexString :: binary()) -> binary().
+hex_string_to_binary(HexString) ->
+    list_to_binary(hex_string_to_list(binary_to_list(HexString), "")).
 
 %% @doc Convert string with hexadecimal characters to list of bytes.
 -spec hex_string_to_list(HexString :: string()) -> List :: [byte()].
@@ -78,9 +90,9 @@ get_random_string(Length, AllowedChars) ->
         ++ Acc
      end, [], lists:seq(1, Length)).
 
--spec get_random_hex_bytes(integer()) -> string().
+-spec get_random_hex_bytes(integer()) -> binary().
 get_random_hex_bytes(N) ->
-    list_to_hex_string(binary_to_list(crypto:strong_rand_bytes(N))).
+    binary_to_hex_string(crypto:strong_rand_bytes(N)).
 
 -spec convert_case(String :: string(), Type :: camel | pascal | lower) -> {ok, OutputString :: string()}.
 convert_case(String, Type) ->
