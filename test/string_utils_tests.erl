@@ -85,4 +85,12 @@ convert_case_test() ->
     ?assertEqual({ok, "_A1B2C3"}, string_utils:convert_case("_A1_b2C3", pascal)),
     ?assertEqual({ok, "_a"}, string_utils:convert_case("_a", pascal)).
 
+find_longest_prefix_test() ->
+    ?assertEqual("abc", string_utils:find_longest_prefix(["abcdef", "abc12"])),
+    ?assertEqual("ab", string_utils:find_longest_prefix(["ababc", "abc"])),
+    ?assertEqual("", string_utils:find_longest_prefix(["abc123", "dabc12", "abc"])),
+    ?assertEqual("", string_utils:find_longest_prefix(["1abc", "abc1"])),
+    ?assertEqual("", string_utils:find_longest_prefix([])),
+    ?assertEqual("abc", string_utils:find_longest_prefix(["abc"])).
+
 -endif.

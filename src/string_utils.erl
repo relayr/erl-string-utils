@@ -19,7 +19,8 @@
     list_to_string/1,
     get_random_string/2,
     get_random_hex_bytes/1,
-    convert_case/2
+    convert_case/2,
+    find_longest_prefix/1
 ]).
 
 %%------------------------------------------------------------------------------
@@ -86,6 +87,25 @@ get_random_hex_bytes(N) ->
 convert_case(String, Type) ->
     convert_case_local(String, Type, true, "").
 
+%%------------------------------------------------------------------------------
+%% @spec find_longest_prefix(Elems) -> LongestPrefix
+%% where
+%%		Elems = [list()]
+%%		LongestPrefix = list()
+%% @doc Find longest prefix among list of strings.
+%% @end
+%%------------------------------------------------------------------------------
+-spec find_longest_prefix(Elems:: [string()]) -> LongestPrefix :: string().
+find_longest_prefix([]) ->
+    "";
+find_longest_prefix(MatchingElems) ->
+    [FirstElem | RestOfElems] = MatchingElems,
+    if RestOfElems =:= [] ->
+        FirstElem;
+        true ->
+            find_longest_prefix_local(FirstElem, 1, RestOfElems)
+    end.
+
 %% =============================================================================
 %% Local functions
 %% =============================================================================
@@ -142,3 +162,34 @@ convert_case_local([$_, Char | RestOfString], pascal, false, Output) when Char >
 convert_case_local([Char | RestOfString], Type, _FirstLetter, Output) ->
     NewOutput = Output ++ [Char],
     convert_case_local(RestOfString, Type, false, NewOutput).
+
+-spec find_longest_prefix_local(Elem :: string(), N :: pos_integer(), Elems :: [string()]) -> LongestPrefix :: string().
+find_longest_prefix_local(Elem, N, []) ->
+    {LongestPrefix, _} = lists:split(N - 1, Elem),
+    LongestPrefix;
+find_longest_prefix_local(Elem, N, TestedElems) ->
+    ElemLength = length(Elem),
+    if N > ElemLength ->
+        find_longest_prefix_local(Elem, N,  []);
+        true ->
+            ElemNth = lists:nth(N, Elem),
+            NthPrefixIsOk = lists:foldl(fun(TestedElem, Acc) ->
+                TestedElemLength = length(TestedElem),
+                % any elem expands N
+                if N > TestedElemLength ->
+                    false;
+                    true ->
+                        TestedElemNth = lists:nth(N, TestedElem),
+                        if ElemNth =/= TestedElemNth ->
+                            false;
+                        true ->
+                            Acc
+                        end
+                end
+                                        end, true, TestedElems),
+            if NthPrefixIsOk =:= true ->
+                find_longest_prefix_local(Elem, N + 1, TestedElems);
+            true ->
+                find_longest_prefix_local(Elem, N, [])
+            end
+    end.
