@@ -16,6 +16,18 @@
 %% Unit tests
 %% =============================================================================
 
+binary_hex_string_test() ->
+    B1 = string_utils:hex_string_to_binary(<<"010203ff0a">>),
+    ?assertEqual(<<1,2,3,255,10>>, B1),
+    ?assertEqual(<<"010203FF0A">>, string_utils:binary_to_hex_string(B1)),
+    B2 = string_utils:hex_string_to_binary(<<"0aA01eFf">>),
+    ?assertEqual(<<10,160,30,255>>, B2),
+    ?assertEqual(<<"0AA01EFF">>, string_utils:binary_to_hex_string(B2)),
+    % invalid characters
+    ?assertException(error, badarg, string_utils:hex_string_to_binary(<<"##0102">>)),
+    % wrong length
+    ?assertException(error, function_clause, string_utils:hex_string_to_binary(<<"123">>)).
+
 list_hex_string_test() ->
     L1 = string_utils:hex_string_to_list("010203ff0a"),
     ?assertEqual([1,2,3,255,10], L1),
@@ -49,12 +61,12 @@ get_random_string_test() ->
 
 get_random_hex_bytes_test() ->
     R1 = string_utils:get_random_hex_bytes(0),
-    ?assertEqual("", R1),
+    ?assertEqual(<<"">>, R1),
     R2 = string_utils:get_random_hex_bytes(3),
-    ?assertEqual(6, length(R2)),
+    ?assertEqual(6, byte_size(R2)),
     lists:foreach(fun(HexValue) ->
         ?assert((HexValue >= $A andalso HexValue =< $F) orelse (HexValue >= $0 andalso HexValue =< $9))
-     end, R2).
+     end, binary_to_list(R2)).
 
 convert_case_test() ->
     ?assertEqual({ok, ""}, string_utils:convert_case("", lower)),
