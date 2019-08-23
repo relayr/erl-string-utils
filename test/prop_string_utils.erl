@@ -108,9 +108,9 @@ prop_find_longest_prefix() ->
             list(?GEN_PRINTABLE_CHARS),
             begin
                 LongestPrefix = string_utils:find_longest_prefix(Strings),
-                ?assertNot(lists:any(   % none of strings should be shorter than longest prefix
+                ?assert(lists:all(   % all strings should be at least the size of longest prefix
                     fun(Str) ->
-                        length(Str) < length(LongestPrefix)
+                        length(LongestPrefix) =< length(Str)
                     end,
                     Strings
                 )),
