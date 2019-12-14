@@ -7,7 +7,7 @@ Various functions operating with Erlang strings and binaries.
 ## Examples
 
 Conversion of string (list of characters) to string containing hexadecimally encoded ASCII characters of the input string
-i.e. 'a' => 61h (97 decimally), '1' => 31h (49 decimally).
+i.e. 'a' => 0x61 (97 decimally), '1' => 0x31 (49 decimally).
 
 ```
 1> string_utils:list_to_hex_string("abc123").
