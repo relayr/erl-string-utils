@@ -91,7 +91,7 @@ prop_convert_case_to_lower() ->
             ?GEN_PRINTABLE_CHARS,  % contains also A-Z and a-z
             begin
                 % convert 'someString' to 'some_string'
-                {ok, LowerCaseString} = string_utils:convert_case(String, lower),
+                LowerCaseString = string_utils:convert_case(String, lower),
                 AllowedChars = ?PRINTABLE_CHARS -- lists:seq($A,$Z),    % lower case string shouldn't contain A-Z
                 ok = assert_allowed_characters(LowerCaseString, AllowedChars),
                 % resulting string will have appended as much '_' characters as there are upper case letters

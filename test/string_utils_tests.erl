@@ -69,33 +69,33 @@ get_random_hex_bytes_test() ->
      end, binary_to_list(R2)).
 
 convert_case_test() ->
-    ?assertEqual({ok, ""}, string_utils:convert_case("", lower)),
-    ?assertEqual({ok, ""}, string_utils:convert_case("", camel)),
-    ?assertEqual({ok, ""}, string_utils:convert_case("", pascal)),
+    ?assertEqual("", string_utils:convert_case("", lower)),
+    ?assertEqual("", string_utils:convert_case("", camel)),
+    ?assertEqual("", string_utils:convert_case("", pascal)),
 
-    ?assertEqual({ok, "_"}, string_utils:convert_case("_", lower)),
-    ?assertEqual({ok, "_"}, string_utils:convert_case("_", camel)),
-    ?assertEqual({ok, "_"}, string_utils:convert_case("_", pascal)),
+    ?assertEqual("_", string_utils:convert_case("_", lower)),
+    ?assertEqual("_", string_utils:convert_case("_", camel)),
+    ?assertEqual("_", string_utils:convert_case("_", pascal)),
 
-    ?assertEqual({ok, "ab_cd1_ef"}, string_utils:convert_case("ab_cd1_ef", lower)),
-    ?assertEqual({ok, "ab_cd_e_f2"}, string_utils:convert_case("abCdEF2", lower)),
-    ?assertEqual({ok, "a_b1c"}, string_utils:convert_case("aB1c", lower)),
-    ?assertEqual({ok, "__a1_b2"}, string_utils:convert_case("_A1B2", lower)),
-    ?assertEqual({ok, "a"}, string_utils:convert_case("A", lower)),
+    ?assertEqual("ab_cd1_ef", string_utils:convert_case("ab_cd1_ef", lower)),
+    ?assertEqual("ab_cd_e_f2", string_utils:convert_case("abCdEF2", lower)),
+    ?assertEqual("a_b1c", string_utils:convert_case("aB1c", lower)),
+    ?assertEqual("__a1_b2", string_utils:convert_case("_A1B2", lower)),
+    ?assertEqual("a", string_utils:convert_case("A", lower)),
 
-    ?assertEqual({ok, "abCd"}, string_utils:convert_case("abCd", camel)),
-    ?assertEqual({ok, "abCd1Ef"}, string_utils:convert_case("AbCd1Ef", camel)),
-    ?assertEqual({ok, "abCdEF2"}, string_utils:convert_case("ab_cd_e_f2", camel)),
-    ?assertEqual({ok, "aB1c"}, string_utils:convert_case("a_b1c", camel)),
-    ?assertEqual({ok, "_A1B2C3"}, string_utils:convert_case("_A1_b2C3", camel)),
-    ?assertEqual({ok, "_a"}, string_utils:convert_case("_a", camel)),
+    ?assertEqual("abCd", string_utils:convert_case("abCd", camel)),
+    ?assertEqual("abCd1Ef", string_utils:convert_case("AbCd1Ef", camel)),
+    ?assertEqual("abCdEF2", string_utils:convert_case("ab_cd_e_f2", camel)),
+    ?assertEqual("aB1c", string_utils:convert_case("a_b1c", camel)),
+    ?assertEqual("_A1B2C3", string_utils:convert_case("_A1_b2C3", camel)),
+    ?assertEqual("_a", string_utils:convert_case("_a", camel)),
 
-    ?assertEqual({ok, "AbCd"}, string_utils:convert_case("AbCd", pascal)),
-    ?assertEqual({ok, "AbCd1Ef"}, string_utils:convert_case("abCd1Ef", pascal)),
-    ?assertEqual({ok, "AbCdEF2"}, string_utils:convert_case("ab_cd_e_f2", pascal)),
-    ?assertEqual({ok, "AB1c"}, string_utils:convert_case("a_b1c", pascal)),
-    ?assertEqual({ok, "_A1B2C3"}, string_utils:convert_case("_A1_b2C3", pascal)),
-    ?assertEqual({ok, "_a"}, string_utils:convert_case("_a", pascal)).
+    ?assertEqual("AbCd", string_utils:convert_case("AbCd", pascal)),
+    ?assertEqual("AbCd1Ef", string_utils:convert_case("abCd1Ef", pascal)),
+    ?assertEqual("AbCdEF2", string_utils:convert_case("ab_cd_e_f2", pascal)),
+    ?assertEqual("AB1c", string_utils:convert_case("a_b1c", pascal)),
+    ?assertEqual("_A1B2C3", string_utils:convert_case("_A1_b2C3", pascal)),
+    ?assertEqual("_a", string_utils:convert_case("_a", pascal)).
 
 find_longest_prefix_test() ->
     ?assertEqual("abc", string_utils:find_longest_prefix(["abcdef", "abc12"])),

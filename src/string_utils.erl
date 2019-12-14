@@ -95,7 +95,7 @@ get_random_string(Length, AllowedChars) ->
 get_random_hex_bytes(N) ->
     binary_to_hex_string(crypto:strong_rand_bytes(N)).
 
--spec convert_case(String :: string(), Type :: camel | pascal | lower) -> {ok, OutputString :: string()}.
+-spec convert_case(String :: string(), Type :: camel | pascal | lower) -> OutputString :: string().
 convert_case(String, Type) ->
     convert_case_local(String, Type, true, "").
 
@@ -149,7 +149,7 @@ hex_to_byte([N1, N2]) ->
     (hex_to_byte([N1]) bsl 4) + hex_to_byte([N2]).
 
 convert_case_local([], _Type, _FirstLetter, Output) ->
-    {ok, Output};
+    Output;
 convert_case_local([Char | RestOfString], lower, true, Output) when Char >= $A andalso Char =< $Z ->
     NewOutput = Output ++ [Char + 32],
     convert_case_local(RestOfString, lower, false, NewOutput);
