@@ -1,6 +1,6 @@
 # string_utils
 
-[![Build Status](https://travis-ci.org/relayr/erl-string-utils.svg?branch=master)](https://travis-ci.org/relayr/erl-string-utils) [![Coverage Status](https://coveralls.io/repos/github/relayr/erl-string-utils/badge.svg?branch=master)](https://coveralls.io/github/relayr/erl-string-utils?branch=master)
+[![Build Status](https://img.shields.io/github/workflow/status/relayr/erl-string-utils/Erlang%20CI)](https://github.com/relayr/erl-string-utils/actions?query=workflow%3A%22Erlang+CI%22) [![Hex.pm](https://img.shields.io/hexpm/v/string_utils.svg?style=flat)](https://hex.pm/packages/string_utils) [![Coverage Status](https://coveralls.io/repos/github/relayr/erl-string-utils/badge.svg?branch=master)](https://coveralls.io/github/relayr/erl-string-utils?branch=master)
 
 Various functions operating with Erlang strings and binaries.
 
